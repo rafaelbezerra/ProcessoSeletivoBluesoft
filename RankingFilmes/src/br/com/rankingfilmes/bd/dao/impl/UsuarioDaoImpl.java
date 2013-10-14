@@ -132,6 +132,8 @@ public class UsuarioDaoImpl implements UsuarioDao{
 	public HashMap<String, Integer> contarVotosUsuarios(){
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		try {
+			System.out.println("entrou aqui");
+			
 			this.sessao = HibernateUtil.getSessionFactory().getCurrentSession();
 			this.transacao = this.sessao.beginTransaction();
 			
@@ -139,11 +141,14 @@ public class UsuarioDaoImpl implements UsuarioDao{
 			filtro.setProjection(Projections.projectionList().add(Projections.groupProperty("usuario.id")).add(Projections.count("usuario").as("contador")));
 			filtro.addOrder(Order.desc("contador"));
 			
+			System.out.println("entrou aqui1");
+			
 			List resultado = filtro.list();
 			this.transacao.commit();
 			
 			Integer total = 0;
 			for(Object a : resultado){
+				System.out.println("entrou aqui2");
 				String str = Arrays.deepToString((Object[]) a);
 				str = str.replace("[", "");
 				str = str.replace("]", "");
@@ -151,7 +156,10 @@ public class UsuarioDaoImpl implements UsuarioDao{
 
 				total += Integer.parseInt(l[1]);
 				
+				System.out.println("entrou aqui3");
+				
 				map.put(this.buscarUsuario(Integer.parseInt(l[0])).getNome(), Integer.parseInt(l[1]));
+				System.out.println("usuario " + l[0] + " " + l[1]);
 			}
 			map.put("total", total);
 		} catch (Throwable e) {
