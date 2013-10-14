@@ -20,6 +20,17 @@
 				}
 			}
 		</script>
+		<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+		<script>
+            $(document).ready(function(){   
+            	$("#a").fadeOut(0); 
+            	$("#b").fadeOut(0);
+            	$("#c").fadeOut(0); 
+            	$("#a").fadeIn(1000);
+	    		$("#b").fadeIn(2000);
+	    		$("#c").fadeIn(3000);
+	        });
+		</script>
 		<title>Vote no filme - Finalizando...</title>
 	</head>
 	<body>
@@ -32,9 +43,9 @@
 		<div class="container">
 			<hr>
 			<div class="jumbotron">
-				<h1>Vote no filme</h1>
-				<p class="lead">Informe o seu nome e e-mail para que seja exibido o resultado.</p>
-				<form name="frmCadastro" method="post" action="exibirResultados.do">
+				<h1 id="a">Vote no filme</h1>
+				<p id="b" class="lead">Informe o seu nome e e-mail para que seja exibido o resultado.</p>
+				<form id="c" name="frmCadastro" method="post" action="exibirResultados.do">
 					<div class="input-group">
 						<span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
  							<input type="text" name="txtNome" maxlength="50" class="form-control" placeholder="Nome">
@@ -48,7 +59,7 @@
  							<input type="text" name="txtConfirmarEmail" maxlength="50" class="form-control" placeholder="Confirmar e-mail">
 					</div>
 					<br>
-					<a onclick="validarCampos();" class="btn btn-lg btn-success">Exibir resultados!</a>
+					<a onclick="validarCampos();" class="btn btn-lg btn-info">Exibir resultados!</a>
 				</form>
 			</div>
 			<hr>

@@ -149,10 +149,18 @@ public class UsuarioDaoImpl implements UsuarioDao{
 				str = str.replace("]", "");
 				String[] l = str.split(", "); 
 
-				total += Integer.parseInt(l[1]);
-					
-				map.put(this.buscarUsuario(Integer.parseInt(l[0])).getNome(), Integer.parseInt(l[1]));
-				System.out.println("usuario " + l[0] + " " + l[1]);
+				String nomeUsuario = this.buscarUsuario(Integer.parseInt(l[0])).getNome();
+				Integer votos = Integer.parseInt(l[1]);
+				
+				total += votos;
+				
+				if(map.containsKey(nomeUsuario)){
+					Integer votosAnteriores = map.get(nomeUsuario);
+					map.remove(nomeUsuario);
+					map.put(nomeUsuario, votos + votosAnteriores);
+				}else{
+					map.put(nomeUsuario, votos);
+				}
 			}
 			map.put("total", total);
 		} catch (Throwable e) {

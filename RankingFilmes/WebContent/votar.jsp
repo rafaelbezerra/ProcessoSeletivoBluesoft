@@ -15,6 +15,17 @@
 				}
 			}
 		</script>
+		<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+		<script>
+            $(document).ready(function(){   
+            	$("#a").fadeOut(0); 
+            	$("#b").fadeOut(0);
+            	$("#c").fadeOut(0); 
+            	$("#a").fadeIn(1000);
+	    		$("#b").fadeIn(2000);
+	    		$("#c").fadeIn(3000);
+	        });
+		</script>
 	</head>
 	<body>
 		<%
@@ -27,22 +38,29 @@
 			<div class="container">
 			<hr>
 				<div class="jumbotron">
-					<h1>Vote no filme</h1>
-					<p>Escolha um filme e clique em votar.</p>
+					<h1 id="a">Vote no filme</h1>
+					<p id="b">Escolha um filme e clique em votar.</p>
 				</div>
-
-				<div class="row">
-            		<div class="col-6 col-sm-6 col-lg-4">
-              			<h2>${sessionScope.fil_nome1}</h2>
-              			<p><input type="radio" name="rdoFilme" value="${sessionScope.fil_id1}"> Vote neste filme</p>
-            		</div>
-            		<div class="col-6 col-sm-6 col-lg-4">
-              			<h2>${sessionScope.fil_nome2}</h2>
-              			<p><input type="radio" name="rdoFilme" value="${sessionScope.fil_id2}"> Vote neste filme</p>
-           			</div>
+	           	<div id="c" class="panel panel-default">				
+					<div align="center" class="row">
+	            		<div class="col-6 col-sm-5 col-lg-5">
+	              			<h2>${sessionScope.fil_nome1}</h2>
+	              			<p><input type="radio" name="rdoFilme" value="${sessionScope.fil_id1}"> Vote neste filme</p>
+	            		</div>
+	            		<div class="col-2 col-sm-2 col-lg-2">
+	              			<h2>X</h2>
+	            		</div>
+	            		<div class="col-6 col-sm-5 col-lg-5">
+	              			<h2>${sessionScope.fil_nome2}</h2>
+	              			<p><input type="radio" name="rdoFilme" value="${sessionScope.fil_id2}"> Vote neste filme</p>
+	           			</div>
+	           		</div>
+	           		<div align="center" class="row">
+						<div class="col-4 col-sm-12 col-lg-4">
+	          				<p><a onclick="verificarSelecionado();" class="btn btn-lg btn-primary">Votar!</a></p>
+          				</div>	           		
+	           		</div>
            		</div>
-           		<br>
-          		<p><a onclick="verificarSelecionado();" class="btn btn-lg btn-success">Votar!</a></p>
           		<hr>
 			</div>
 		</form>
