@@ -36,4 +36,13 @@
   	<servlet-name>exibir</servlet-name>
   	<url-pattern>/exibirResultados.do</url-pattern>
   </servlet-mapping>
+  
+  <filter>  
+    <filter-name>sessionFilter</filter-name>  
+    <filter-class>br.com.rankingfilmes.SessionFilter</filter-class>   
+  </filter>
+  <filter-mapping>  
+    <filter-name>sessionFilter</filter-name>   
+    <url-pattern>*.jsp</url-pattern>  
+  </filter-mapping> 
 </web-app>

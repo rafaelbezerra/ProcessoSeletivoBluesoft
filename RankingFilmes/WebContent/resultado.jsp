@@ -10,7 +10,7 @@
 	</head>
 	<body>
 		<%
-		if(request.getSession().getAttribute("usu_id") == null){
+		if(request.getSession().getAttribute("votosFilmes") == null){
 			response.sendRedirect("index.jsp");			
 		}
 		%>
@@ -21,7 +21,7 @@
 				<p class="lead">${sessionScope.usu_nome}, obrigado por participar do Vote no filme!</p>
 			</div>
 			<br>
-			<h2>Filmes:</h2>
+			<h2>Ranking de votos em filmes:</h2>
 			<div class="panel panel-default">
   				<div class="panel-body">
 			<%
@@ -45,7 +45,30 @@
 				</div>
 			</div>
 			
-
+			<h2>Ranking de votos por usuário:</h2>
+			<div class="panel panel-default">
+  				<div class="panel-body">
+			<%
+			HashMap<String, Integer> votosUsuarios = (HashMap) request.getSession().getAttribute("votosUsuarios");
+			request.getSession().invalidate();
+			Iterator<String> keySetIterator2 = votosUsuarios.keySet().iterator();
+			while(keySetIterator2.hasNext()){
+	  			String usuario = keySetIterator2.next();
+	  			if(!usuario.equals("total")){
+		  			Double parcial = Double.parseDouble(votosUsuarios.get(usuario) + " ");
+		  			Double total = Double.parseDouble(votosUsuarios.get("total") + " ");
+		  			Integer porc = (int) (((parcial / total) * 100) - (((parcial / total) * 100) % 1));
+		  			%>
+			  		<p><%= usuario + " | " + porc + "% | " + votosUsuarios.get(usuario) + " Voto(s)" %></p>
+					<div class="progress">
+						<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="<%= votosUsuarios.get(usuario) %>" aria-valuemin="0" aria-valuemax="<%= votosUsuarios.get("total") %>" style="width: <%= porc %>%"></div>
+					</div>
+					<%
+	  			}
+		  	}
+			%>
+				</div>
+			</div>
 			<hr>
 		</div>
 	</body>

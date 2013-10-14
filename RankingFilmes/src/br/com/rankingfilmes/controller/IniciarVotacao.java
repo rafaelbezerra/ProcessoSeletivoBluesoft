@@ -18,6 +18,11 @@ public class IniciarVotacao extends HttpServlet{
 		
 		usuarioDao.salvar(usuario);
 		
+		usuario.setNome("NomeNãoDefinido" + usuario.getId());
+		usuario.setEmail("EmailNãoDefinido" + usuario.getId());
+		
+		usuarioDao.atualizar(usuario);
+		
 		HttpSession sessao = request.getSession();
 		sessao.setAttribute("usu_id", usuario.getId());
 		
