@@ -10,8 +10,9 @@
 	</head>
 	<body>
 		<%
-		if(request.getSession().getAttribute("votosFilmes") == null){
-			response.sendRedirect("index.jsp");			
+		if(request.getSession().getAttribute("usu_id") == null){
+			response.sendRedirect("index.jsp");
+			return;
 		}
 		%>
 		<div class="container">
@@ -26,21 +27,25 @@
   				<div class="panel-body">
 			<%
 			HashMap<String, Integer> votosFilmes = (HashMap) request.getSession().getAttribute("votosFilmes");
-			Iterator<String> keySetIterator1 = votosFilmes.keySet().iterator();
-			while(keySetIterator1.hasNext()){
-	  			String filme = keySetIterator1.next();
-	  			if(!filme.equals("total")){
-		  			Double parcial = Double.parseDouble(votosFilmes.get(filme) + " ");
-		  			Double total = Double.parseDouble(votosFilmes.get("total") + " ");
-		  			Integer porc = (int) (((parcial / total) * 100) - (((parcial / total) * 100) % 1));
+			if(votosFilmes != null){
+				Iterator<String> keySetIterator1 = votosFilmes.keySet().iterator();
+				while(keySetIterator1.hasNext()){
+		  			String filme = keySetIterator1.next();
+		  			if(!filme.equals("total")){
+			  			Double parcial = Double.parseDouble(votosFilmes.get(filme) + " ");
+			  			Double total = Double.parseDouble(votosFilmes.get("total") + " ");
+			  			Integer porc = (int) (((parcial / total) * 100) - (((parcial / total) * 100) % 1));
 		  			%>
 			  		<p><%= filme + " | " + porc + "% | " + votosFilmes.get(filme) + " Voto(s)" %></p>
 					<div class="progress">
 						<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="<%= votosFilmes.get(filme) %>" aria-valuemin="0" aria-valuemax="<%= votosFilmes.get("total") %>" style="width: <%= porc %>%"></div>
 					</div>
 					<%
-	  			}
-		  	}
+		  			}
+			  	}
+			}else{
+				response.sendRedirect("index.jsp");
+			}
 			%>
 				</div>
 			</div>
@@ -50,6 +55,7 @@
   				<div class="panel-body">
 			<%
 			HashMap<String, Integer> votosUsuarios = (HashMap) request.getSession().getAttribute("votosUsuarios");
+			request.getSession().removeAttribute("usu_id");
 			request.getSession().invalidate();
 			Iterator<String> keySetIterator2 = votosUsuarios.keySet().iterator();
 			while(keySetIterator2.hasNext()){

@@ -25,7 +25,8 @@
 	<body>
 		<%
 		if(request.getSession().getAttribute("usu_id") == null){
-			response.sendRedirect("index.jsp");			
+			response.sendRedirect("index.jsp");
+			return;
 		}
 		%>
 		<div class="container">
