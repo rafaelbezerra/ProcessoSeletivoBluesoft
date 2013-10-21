@@ -23,10 +23,7 @@ public class ExibirResultados extends HttpServlet{
 			usuario.setId((Integer) sessao.getAttribute("usu_id"));
 			usuario.setNome(request.getParameter("txtNome").trim());
 			sessao.setAttribute("usu_nome", request.getParameter("txtNome").trim());
-			
-			if(request.getParameter("txtEmail") == request.getParameter("txtConfirmarEmail")){
-				usuario.setEmail(request.getParameter("txtEmail").trim());
-			}
+			usuario.setEmail(request.getParameter("txtEmail").trim());
 			
 			usuarioDao.atualizar(usuario);
 			
